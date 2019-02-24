@@ -1,7 +1,7 @@
 {
-  "name": "redux-simple-starter",
+  "name": "video-display",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "This application to search for videos on youtube api and playback",
   "main": "index.js",
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
@@ -10,7 +10,7 @@
     "test:watch": "npm run test -- --watch",
     "build": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors"
   },
-  "author": "",
+  "author": "Balaji",
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.2.1",
@@ -21,6 +21,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-preset-stage-1": "^6.1.18",
     "lodash": "^3.10.1",
     "react": "16.3.2",
