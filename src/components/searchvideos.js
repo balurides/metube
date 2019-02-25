@@ -15,7 +15,7 @@ export default class VideoSearch extends Component {
 
   render() {
     return (
-      <div className = "ui container">
+      <div className = "ui segment">
         <form className="ui form" onSubmit={this.onFormSubmit}>
           <div className="field">
             <label>Video search for ?</label>

@@ -1,30 +1,70 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+
 module.exports = {
-  entry: ['./src/index.js'],
-  output: {
-    path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
+  mode: 'development',
+  entry: [
+    // path.resolve(__dirname,'../src','index.js'),
+    './src/index.js',
+    'webpack/hot/only-dev-server',
+    './style/style.css',
+  ],
+  devtool: 'source-map',
+  devServer: {
+    contentBase: '/dist',
+    hot:true,
+      historyApiFallback: true,
   },
   module: {
-    loaders: [
+    rules: [
       {
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'es2015', 'stage-1']
-        }
-      }
+        test: /\.(js|jsx)$/,
+        // exclude: /node_modules/,
+        loader: require.resolve('babel-loader'),
+        exclude: /node_modules/
+
+        /* use:[ {
+            loader:'babel-loader',
+           
+            options: { babelrcRoots: ['.', '../'] },
+            // options: { babelrcRoots: ['.', './node_modules/react-pdf'] },
+            }], */
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg|ico)$/i,
+        use: [
+            {
+                loader: "file-loader",
+                options: {
+                    outputPath: "assets/"
+                }
+            }
+        ]
+      },
+      
     ]
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'output Management',
+      template:"./index.html"
+    }),
+    new webpack.ProvidePlugin({
+      _:'lodash',
+      join: ['lodash','join']
+    }),
+    new CleanWebpackPlugin(['dist']),
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  output: {
+    path: __dirname + '/build',
+    filename: 'bundle.js'
   },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: './',
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    }
-  }
+    
 };
